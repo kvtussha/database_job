@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from src.hh import HeadHunterAPI
 
 
