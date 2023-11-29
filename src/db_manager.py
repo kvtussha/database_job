@@ -107,6 +107,6 @@ class DBManager:
             return 'По такому ключевому слову вакансий не найдено'
 
 
-# db_manager = DBManager()
-# data = db_manager.need_full_vacancies()
-# print(db_manager.get_vacancies_with_keyword('paccлабон', data))
+db_manager = DBManager()
+data = db_manager.need_full_vacancies()
+print(db_manager.get_vacancies_with_keyword('paccлабон', data))
