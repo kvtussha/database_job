@@ -1,49 +1,30 @@
-import psycopg2
+from pprint import pprint
 
 from src.db_manager import DBManager
 
-"""Connect to db"""
-conn = psycopg2.connect(
-    host='localhost',
-    database='job',
-    user='postgres',
-    password='o977kx'
-)
-
-"""Create cursor"""
-cur = conn.cursor()
-
 db_manager = DBManager()
+data = db_manager.need_full_vacancies()
 
 
-def employers():
-    for i in db_manager.get_companies():
-        value = (
-            int(i['id']),
-            i['name']
-        )
-        cur.execute('INSERT INTO employers VALUES (%s, %s)', value)
-        conn.commit()
+def user_interaction():
+    companies = db_manager.get_companies()
+    print(f'Список со словарями с информацией о компаниях: {companies}')
+
+    vacancies_count = db_manager.get_vacancies_count()
+    print(f'Словарь с названием компании и количеством ее вакансий: {vacancies_count}')
+
+    all_vacancies = db_manager.get_all_vacancies()
+    print(f'Список с важной информацией о вакансии: {all_vacancies}')
+
+    avg_salary = db_manager.get_avg_salary()
+    print(f'Средняя зарплата по вакансиям: {avg_salary}')
+
+    vacancies_higher_salary = db_manager.get_vacancies_with_higher_salary()
+    print(f'Список вакансий с зарплатой выше среднего: {vacancies_higher_salary}')
+
+    vacancies_keyword = db_manager.get_vacancies_with_keyword('менеджер', data)
+    print(f'Список вакансий по ключевому слову: {vacancies_keyword}')
 
 
-def get_id_employer(company_name: str) -> int:
-    cur.execute("SELECT employer_id FROM employers WHERE employer_name = %s", (company_name,))
-    result = cur.fetchone()
-    return result[0] if result else None
-
-
-def vacancies():
-    for i in db_manager.get_all_vacancies():
-        values = (
-            get_id_employer(i['company_name']),
-            i['company_name'],
-            i['job_title'],
-            i['link'],
-            i['salary'],
-        )
-        cur.execute('INSERT INTO vacancies (employer_id, employer_name, job_title, link, salary) VALUES (%s, %s, %s, %s, %s)', values)
-        conn.commit()
-
-
-# employers()
-vacancies()
+if __name__ == "__main__":
+    user_interaction()

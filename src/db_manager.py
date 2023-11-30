@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from src.hh import HeadHunterAPI
 
 
@@ -49,7 +51,9 @@ class DBManager:
     @staticmethod
     def _define_salary(dct: dict):
         """Функция получает значение зарплаты"""
-        if dct['from'] is not None:
+        if dct is None:
+            return 0
+        elif dct['from'] is not None:
             return dct['from']
         elif dct['to'] is not None:
             return dct['to']
@@ -63,7 +67,7 @@ class DBManager:
         salaries = []
         for i in vacancies:
             salaries.append(i['salary'])
-        result = sum(salaries) / len(salaries)
+        result = round(sum(salaries) / len(salaries))
         return result
 
     @classmethod
@@ -87,7 +91,7 @@ class DBManager:
         return full_vacancies
 
     @classmethod
-    def get_vacancies_with_keyword(cls, word: str, data):
+    def get_vacancies_with_keyword(cls, word: str, data) -> list | str:
         result = []
 
         if isinstance(data, dict):
@@ -99,12 +103,14 @@ class DBManager:
         elif isinstance(data, list):
             for item in data:
                 result.extend(cls.get_vacancies_with_keyword(word, item))
-        if result:
-            return result
-        else:
-            return 'По такому ключевому слову вакансий не найдено'
+        return result
+        # if result:
+        #     return result
+        # else:
+        #     return 'По такому ключевому слову вакансий не найдено'
 
 
 db_manager = DBManager()
 data = db_manager.need_full_vacancies()
-print(db_manager.get_vacancies_with_keyword('paccлабон', data))
+# print(db_manager.get_vacancies_with_keyword('менеджер', data))
+# pprint(db_manager.need_full_vacancies())
