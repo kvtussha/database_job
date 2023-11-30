@@ -22,6 +22,10 @@ def user_interaction():
     vacancies_higher_salary = db_manager.get_vacancies_with_higher_salary()
     print(f'Список вакансий с зарплатой выше среднего: {vacancies_higher_salary}')
 
+    """Чтобы примерно посмотреть, какие слова есть в вакансиях, посмотрите, пожалуйста, 
+    список полных вакансий"""
+    # print(db_manager.need_full_vacancies())
+
     vacancies_keyword = db_manager.get_vacancies_with_keyword('менеджер', data)
     print(f'Список вакансий по ключевому слову: {vacancies_keyword}')
 
