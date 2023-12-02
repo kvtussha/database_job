@@ -44,7 +44,7 @@ class ReceivingInfo:
         """
         query = 'SELECT AVG(salary) FROM vacancies'
         cur.execute(query)
-        return cur.fetchone()[0]
+        return int(cur.fetchone()[0])
 
     @classmethod
     def get_vacancies_with_higher_salary(cls) -> list:
