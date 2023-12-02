@@ -1,6 +1,7 @@
 CREATE TABLE employers (
 	employer_id INTEGER PRIMARY KEY,
 	employer_name TEXT,
+	count_vacancy INTEGER
 );
 
 CREATE TABLE vacancies (
@@ -8,7 +9,9 @@ CREATE TABLE vacancies (
 	employer_id INTEGER,
 	employer_name CHARACTER(100),
 	job_title CHARACTER(100),
-	link TEXT,
+	vacancy_link TEXT,
 	salary INTEGER,
+	requirement TEXT,
+	responsibility TEXT,
 	FOREIGN KEY (employer_id) REFERENCES employers(employer_id)
 );
