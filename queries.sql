@@ -1,3 +1,5 @@
+CREATE database job;
+
 CREATE TABLE employers (
 	employer_id INTEGER PRIMARY KEY,
 	employer_name TEXT,
